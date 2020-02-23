@@ -1,2 +1,2 @@
-# fullstack_0sa5
+# fullstack_osa5
 FullStack-kurssin osan 5 harjoitukset
