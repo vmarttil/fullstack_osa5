@@ -17,10 +17,10 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
 
-  useEffect(() => {
-    blogService.getAll().then(blogs =>
-      setBlogs( blogs )
-    )  
+  useEffect( async () => {
+    const blogs = await blogService.getAll()
+    blogs.sort((a, b) => b.likes - a.likes)
+    setBlogs(blogs)
   }, [])
 
   useEffect(() => {
@@ -64,6 +64,7 @@ const App = () => {
     noteFormRef.current.toggleVisibility()
     const returnedBlog = await blogService.create(blogObject)
     setBlogs(blogs.concat(returnedBlog))
+    blogs.sort((a, b) => b.likes - a.likes)
     setInfoMessage(`A new blog, "${returnedBlog.title}" by ${returnedBlog.author} added.`)
     setTimeout(() => {
       setInfoMessage(null)
@@ -72,10 +73,9 @@ const App = () => {
 
   const updateBlog = async (id, blogObject) => {
     await blogService.update(id, blogObject)
-    blogService.getAll().then(blogs =>
-      setBlogs( blogs )
-    )
-    
+    const blogs = await blogService.getAll()
+    blogs.sort((a, b) => b.likes - a.likes)
+    setBlogs(blogs)
   }
 
 const loginForm = () => (
