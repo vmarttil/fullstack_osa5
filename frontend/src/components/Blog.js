@@ -29,20 +29,39 @@ const Blog = ({ blog, user, updateBlog, deleteBlog }) => {
     deleteBlog(blog)
   }
 
-
-  return (
-    <div className="blogEntry">
-      &lsquo;{blog.title}&rsquo; by {blog.author}
-      <button style={hideWhenDetails} onClick={toggleDetails}>view</button>
-      <button style={showWhenDetails} onClick={toggleDetails}>hide</button>
-      <div style={showWhenDetails}>
-        {blog.url}<br />
-        likes {blog.likes}<button onClick={addLike}>like</button><br />
-        {blog.user.name}<br />
-        <button className="removeButton" style={showWhenAddedByUser} onClick={removeBlog}>remove</button>
+  if (details === true && user.id === blog.user._id) {
+    return (
+      <div className="blogEntry">
+        &lsquo;{blog.title}&rsquo; by {blog.author}
+        <button onClick={toggleDetails}>hide</button>
+        <div>
+          {blog.url}<br />
+          likes {blog.likes}<button onClick={addLike}>like</button><br />
+          {blog.user.name}<br />
+          <button className="removeButton" onClick={removeBlog}>remove</button>
+        </div>
       </div>
-    </div>
-  )
+    )
+  } else if (details === true) {
+    return (
+      <div className="blogEntry">
+        &lsquo;{blog.title}&rsquo; by {blog.author}
+        <button onClick={toggleDetails}>hide</button>
+        <div>
+          {blog.url}<br />
+          likes {blog.likes}<button onClick={addLike}>like</button><br />
+          {blog.user.name}<br />
+        </div>
+      </div>
+    )
+  } else {
+    return (
+      <div className="blogEntry">
+        &lsquo;{blog.title}&rsquo; by {blog.author}
+        <button onClick={toggleDetails}>view</button>
+      </div>
+    )
+  }
 }
 
 Blog.propTypes = {
