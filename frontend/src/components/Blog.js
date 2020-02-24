@@ -36,7 +36,7 @@ const Blog = ({ blog, user, updateBlog, deleteBlog }) => {
         <button className="hideButton" onClick={toggleDetails}>hide</button>
         <div>
           {blog.url}<br />
-          likes {blog.likes}<button onClick={addLike}>like</button><br />
+          likes {blog.likes}<button className="likeButton" onClick={addLike}>like</button><br />
           {blog.user.name}<br />
           <button className="removeButton" onClick={removeBlog}>remove</button>
         </div>
@@ -49,7 +49,7 @@ const Blog = ({ blog, user, updateBlog, deleteBlog }) => {
         <button className="hideButton" onClick={toggleDetails}>hide</button>
         <div>
           {blog.url}<br />
-          likes {blog.likes}<button onClick={addLike}>like</button><br />
+          likes {blog.likes}<button className="likeButton" onClick={addLike}>like</button><br />
           {blog.user.name}<br />
         </div>
       </div>

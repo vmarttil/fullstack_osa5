@@ -35,7 +35,7 @@ describe('Blog app', function() {
     })
   })
 
-  describe.only('When logged in', function() {
+  describe('When logged in', function() {
     beforeEach(function() {
       cy.get('#username').type('vmarttil')
       cy.get('#password').type('salainen')
@@ -48,7 +48,18 @@ describe('Blog app', function() {
       cy.get('#author').type('Michael Chan')
       cy.get('#url').type('https://reactpatterns.com/')
       cy.get('#create-button').click()
-      cy.contains('‘React patterns’')
+      cy.contains('‘React patterns’ by Michael Chan')
+    })
+
+    it('A created blog can be liked', function() {
+      cy.get('#newblog-button').click()
+      cy.get('#title').type('React patterns')
+      cy.get('#author').type('Michael Chan')
+      cy.get('#url').type('https://reactpatterns.com/')
+      cy.get('#create-button').click()
+      cy.get('.viewButton').click()
+      cy.get('.likeButton').click()
+      cy.contains('likes 1')
     })
   })
 
