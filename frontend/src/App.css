@@ -36,3 +36,21 @@
     transform: rotate(360deg);
   }
 }
+
+.error {
+  color: red;
+  font-weight: bold;
+  border-style: solid;
+  border-color: red;
+  background-color: lightgrey;
+  padding: 0.5em;
+}
+
+.info {
+  color: green;
+  font-weight: bold;
+  border-style: solid;
+  border-color: green;
+  background-color: lightgrey;
+  padding: 0.5em;
+}
