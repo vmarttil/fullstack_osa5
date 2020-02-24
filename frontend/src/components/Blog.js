@@ -33,7 +33,7 @@ const Blog = ({ blog, user, updateBlog, deleteBlog }) => {
     return (
       <div className="blogEntry">
         &lsquo;{blog.title}&rsquo; by {blog.author}
-        <button onClick={toggleDetails}>hide</button>
+        <button className="hideButton" onClick={toggleDetails}>hide</button>
         <div>
           {blog.url}<br />
           likes {blog.likes}<button onClick={addLike}>like</button><br />
@@ -46,7 +46,7 @@ const Blog = ({ blog, user, updateBlog, deleteBlog }) => {
     return (
       <div className="blogEntry">
         &lsquo;{blog.title}&rsquo; by {blog.author}
-        <button onClick={toggleDetails}>hide</button>
+        <button className="hideButton" onClick={toggleDetails}>hide</button>
         <div>
           {blog.url}<br />
           likes {blog.likes}<button onClick={addLike}>like</button><br />
@@ -58,7 +58,7 @@ const Blog = ({ blog, user, updateBlog, deleteBlog }) => {
     return (
       <div className="blogEntry">
         &lsquo;{blog.title}&rsquo; by {blog.author}
-        <button onClick={toggleDetails}>view</button>
+        <button className="viewButton" onClick={toggleDetails}>view</button>
       </div>
     )
   }
