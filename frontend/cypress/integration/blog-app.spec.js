@@ -33,7 +33,23 @@ describe('Blog app', function() {
       cy.get('#login-button').click()
       cy.contains('Wrong username or password.')
     })
-
   })
-  
+
+  describe.only('When logged in', function() {
+    beforeEach(function() {
+      cy.get('#username').type('vmarttil')
+      cy.get('#password').type('salainen')
+      cy.get('#login-button').click()
+    })
+
+    it('A blog can be created', function() {
+      cy.get('#newblog-button').click()
+      cy.get('#title').type('React patterns')
+      cy.get('#author').type('Michael Chan')
+      cy.get('#url').type('https://reactpatterns.com/')
+      cy.get('#create-button').click()
+      cy.contains('‘React patterns’')
+    })
+  })
+
 })
