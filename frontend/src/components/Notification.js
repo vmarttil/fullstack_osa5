@@ -13,8 +13,8 @@ const Notification = ({ type, message }) => {
   }
   return (
     <div className="info">
-        {message}
-  </div>
+      {message}
+    </div>
   )
 }
 

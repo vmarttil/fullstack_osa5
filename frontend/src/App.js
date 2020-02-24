@@ -6,14 +6,14 @@ import BlogForm from './components/BlogForm'
 import Togglable from './components/Togglable'
 import Notification from './components/Notification'
 import blogService from './services/blogs'
-import loginService from './services/login' 
+import loginService from './services/login'
 
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [errorMessage, setErrorMessage] = useState(null)
   const [infoMessage, setInfoMessage] = useState(null)
-  const [username, setUsername] = useState('') 
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
 
@@ -23,8 +23,8 @@ const App = () => {
       response.sort((a, b) => b.likes - a.likes)
       setBlogs(response)
     }
-    fetchBlogs();
-  }, []);
+    fetchBlogs()
+  }, [])
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
@@ -45,7 +45,7 @@ const App = () => {
       })
       window.localStorage.setItem(
         'loggedBlogappUser', JSON.stringify(user)
-      ) 
+      )
       blogService.setToken(user.token)
       setUser(user)
       setUsername('')
@@ -90,36 +90,36 @@ const App = () => {
     }
   }
 
-const loginForm = () => (
-  <LoginForm username={username} setUsername={setUsername} password={password} setPassword={setPassword} handleLogin={handleLogin} />
-)
+  const loginForm = () => (
+    <LoginForm username={username} setUsername={setUsername} password={password} setPassword={setPassword} handleLogin={handleLogin} />
+  )
 
-const blogForm = () => (
-  <Togglable buttonLabel='new blog' ref={noteFormRef}>
-    <h3>Create new</h3>
-    <BlogForm createBlog={addBlog} />
-  </Togglable>
-)
+  const blogForm = () => (
+    <Togglable buttonLabel='new blog' ref={noteFormRef}>
+      <h3>Create new</h3>
+      <BlogForm createBlog={addBlog} />
+    </Togglable>
+  )
 
-const loggedContent = () => (
-  <div>
-    <p>{user.name} logged in <button onClick={handleLogout}>logout</button></p>
-    {blogForm()}
-    {blogs.map(blog => <Blog key={blog.id} blog={blog} user={user} updateBlog={updateBlog} deleteBlog={deleteBlog}/>)}
-  </div>
-)
+  const loggedContent = () => (
+    <div>
+      <p>{user.name} logged in <button onClick={handleLogout}>logout</button></p>
+      {blogForm()}
+      {blogs.map(blog => <Blog key={blog.id} blog={blog} user={user} updateBlog={updateBlog} deleteBlog={deleteBlog} />)}
+    </div>
+  )
 
   return (
-    
+
     <div>
       <h2>Blogs</h2>
       <Notification message={errorMessage} type='error' />
       <Notification message={infoMessage} type='info' />
-      {user === null ? 
-      loginForm() :
-      loggedContent()
-    }
-      
+      {user === null ?
+        loginForm() :
+        loggedContent()
+      }
+
     </div>
   )
 }
