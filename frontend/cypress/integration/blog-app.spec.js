@@ -18,4 +18,20 @@ describe('Blog app', function() {
     cy.contains('login')
 
   })
+
+  it('User can login with correct credentials', function () {
+    cy.get('#username').type('vmarttil')
+    cy.get('#password').type('salainen')
+    cy.get('#login-button').click()
+    cy.contains('Ville Marttila logged in')
+  })
+
+  it('Login with wrong credentials fails', function () {
+    cy.get('#username').type('olematon')
+    cy.get('#password').type('vaara')
+    cy.get('#login-button').click()
+    cy.contains('Wrong username or password.')
+  })
+
+
 })
