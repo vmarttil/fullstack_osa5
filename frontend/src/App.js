@@ -70,6 +70,14 @@ const App = () => {
     }, 5000)
   }
 
+  const updateBlog = async (id, blogObject) => {
+    await blogService.update(id, blogObject)
+    blogService.getAll().then(blogs =>
+      setBlogs( blogs )
+    )
+    
+  }
+
 const loginForm = () => (
   <Login username={username} setUsername={setUsername} password={password} setPassword={setPassword} handleLogin={handleLogin} />
 )
@@ -85,7 +93,7 @@ const loggedContent = () => (
   <div>
     <p>{user.name} logged in <button onClick={handleLogout}>logout</button></p>
     {blogForm()}
-    {blogs.map(blog => <Blog key={blog.id} blog={blog} />)}
+    {blogs.map(blog => <Blog key={blog.id} blog={blog} updateBlog={updateBlog}/>)}
   </div>
 )
 
