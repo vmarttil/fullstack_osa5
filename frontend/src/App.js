@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './App.css'
 import Blog from './components/Blog'
 import Login from './components/Login'
-import Create from './components/Create'
+import BlogForm from './components/BlogForm'
 import Notification from './components/Notification'
 import blogService from './services/blogs'
 import loginService from './services/login' 
@@ -10,9 +10,6 @@ import loginService from './services/login'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-  const [newBlogTitle, setNewBlogTitle] = useState('')
-  const [newBlogAuthor, setNewBlogAuthor] = useState('')
-  const [newBlogUrl, setNewBlogUrl] = useState('')
   const [errorMessage, setErrorMessage] = useState(null)
   const [infoMessage, setInfoMessage] = useState(null)
   const [username, setUsername] = useState('') 
@@ -61,32 +58,25 @@ const App = () => {
     setUser(null)
   }
 
-  const handleCreate = async (event) => {
-    event.preventDefault()
-    const blogObject = {
-      title: newBlogTitle,
-      author: newBlogAuthor,
-      url: newBlogUrl,
-    }
+  const addBlog = async (blogObject) => {
     const returnedBlog = await blogService.create(blogObject)
     setBlogs(blogs.concat(returnedBlog))
-    setInfoMessage(`A new blog, "${newBlogTitle}" by ${newBlogAuthor} added.`)
+    setInfoMessage(`A new blog, "${returnedBlog.title}" by ${returnedBlog.author} added.`)
     setTimeout(() => {
       setInfoMessage(null)
     }, 5000)
-    setNewBlogTitle('')
-    setNewBlogAuthor('')
-    setNewBlogUrl('')
   }
+
+
 
 const loginForm = () => (
   <Login username={username} setUsername={setUsername} password={password} setPassword={setPassword} handleLogin={handleLogin} />
 )
 
 const createForm = () => (
-  <Create title={newBlogTitle} setTitle={setNewBlogTitle} author={newBlogAuthor} setAuthor={setNewBlogAuthor} url={newBlogUrl} setUrl={setNewBlogUrl} handleCreate={handleCreate} />
+  <BlogForm createBlog={addBlog} />
 )
-
+  
 const loggedContent = () => (
   <div>
     <p>{user.name} logged in <button onClick={handleLogout}>logout</button></p>
