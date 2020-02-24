@@ -3,6 +3,7 @@ import './App.css'
 import Blog from './components/Blog'
 import Login from './components/Login'
 import BlogForm from './components/BlogForm'
+import Togglable from './components/Togglable'
 import Notification from './components/Notification'
 import blogService from './services/blogs'
 import loginService from './services/login' 
@@ -31,6 +32,7 @@ const App = () => {
     }
   }, [])
 
+  const noteFormRef = React.createRef()
 
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -59,6 +61,7 @@ const App = () => {
   }
 
   const addBlog = async (blogObject) => {
+    noteFormRef.current.toggleVisibility()
     const returnedBlog = await blogService.create(blogObject)
     setBlogs(blogs.concat(returnedBlog))
     setInfoMessage(`A new blog, "${returnedBlog.title}" by ${returnedBlog.author} added.`)
@@ -67,21 +70,21 @@ const App = () => {
     }, 5000)
   }
 
-
-
 const loginForm = () => (
   <Login username={username} setUsername={setUsername} password={password} setPassword={setPassword} handleLogin={handleLogin} />
 )
 
-const createForm = () => (
-  <BlogForm createBlog={addBlog} />
+const blogForm = () => (
+  <Togglable buttonLabel='new blog' ref={noteFormRef}>
+    <h3>Create new</h3>
+    <BlogForm createBlog={addBlog} />
+  </Togglable>
 )
-  
+
 const loggedContent = () => (
   <div>
     <p>{user.name} logged in <button onClick={handleLogout}>logout</button></p>
-    <h3>Create new</h3>
-    {createForm()}
+    {blogForm()}
     {blogs.map(blog => <Blog key={blog.id} blog={blog} />)}
   </div>
 )
