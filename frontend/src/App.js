@@ -61,7 +61,6 @@ const App = () => {
     setUser(null)
   }
 
-
   const handleCreate = async (event) => {
     event.preventDefault()
     const blogObject = {
@@ -79,7 +78,7 @@ const App = () => {
     setNewBlogAuthor('')
     setNewBlogUrl('')
   }
-  
+
 const loginForm = () => (
   <Login username={username} setUsername={setUsername} password={password} setPassword={setPassword} handleLogin={handleLogin} />
 )
