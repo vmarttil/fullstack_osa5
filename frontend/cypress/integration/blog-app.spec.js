@@ -18,20 +18,22 @@ describe('Blog app', function() {
     cy.contains('login')
 
   })
+
   describe('Login',function() {
-  it('succeeds with correct credentials', function () {
-    cy.get('#username').type('vmarttil')
-    cy.get('#password').type('salainen')
-    cy.get('#login-button').click()
-    cy.contains('Ville Marttila logged in')
-  })
+    it('succeeds with correct credentials', function () {
+      cy.get('#username').type('vmarttil')
+      cy.get('#password').type('salainen')
+      cy.get('#login-button').click()
+      cy.contains('Ville Marttila logged in')
+    })
 
-  it('fails with wrong credentials', function () {
-    cy.get('#username').type('olematon')
-    cy.get('#password').type('vaara')
-    cy.get('#login-button').click()
-    cy.contains('Wrong username or password.')
-  })
+    it('fails with wrong credentials', function () {
+      cy.get('#username').type('olematon')
+      cy.get('#password').type('vaara')
+      cy.get('#login-button').click()
+      cy.contains('Wrong username or password.')
+    })
 
   })
+  
 })
