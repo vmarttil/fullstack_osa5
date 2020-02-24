@@ -17,11 +17,14 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
 
-  useEffect( async () => {
-    const blogs = await blogService.getAll()
-    blogs.sort((a, b) => b.likes - a.likes)
-    setBlogs(blogs)
-  }, [])
+  useEffect(() => {
+    async function fetchBlogs() {
+      const response = await blogService.getAll()
+      response.sort((a, b) => b.likes - a.likes)
+      setBlogs(response)
+    }
+    fetchBlogs();
+  }, []);
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
@@ -73,9 +76,18 @@ const App = () => {
 
   const updateBlog = async (id, blogObject) => {
     await blogService.update(id, blogObject)
-    const blogs = await blogService.getAll()
-    blogs.sort((a, b) => b.likes - a.likes)
-    setBlogs(blogs)
+    const response = await blogService.getAll()
+    response.sort((a, b) => b.likes - a.likes)
+    setBlogs(response)
+  }
+
+  const deleteBlog = async (blog) => {
+    if (window.confirm(`Delete blog "${blog.title}" by ${blog.author}?`)) {
+      await blogService.del(blog.id)
+      const response = await blogService.getAll()
+      response.sort((a, b) => b.likes - a.likes)
+      setBlogs(response)
+    }
   }
 
 const loginForm = () => (
@@ -93,7 +105,7 @@ const loggedContent = () => (
   <div>
     <p>{user.name} logged in <button onClick={handleLogout}>logout</button></p>
     {blogForm()}
-    {blogs.map(blog => <Blog key={blog.id} blog={blog} updateBlog={updateBlog}/>)}
+    {blogs.map(blog => <Blog key={blog.id} blog={blog} user={user} updateBlog={updateBlog} deleteBlog={deleteBlog}/>)}
   </div>
 )
 
